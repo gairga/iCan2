@@ -1,0 +1,36 @@
+<div class="page-header">
+
+	<h1>Welcomeee!</h1>
+    <h2>TU Role es:</h2>
+            
+            <% if current_user.superadmin_role? %>
+               ADMIN         
+            <% end %>
+             <% if current_user.supervisor_role? %>
+               SUPER VISOR         
+            <% end %>
+            <% if current_user.user_role? %>
+                UN MORTAL
+            <% end %>
+</div>
+
+<% if can? :manage, User %>
+	<p>Visible only for superadmins and supervisors! </p>
+	<%= link_to "Panel Administrativo", "../admin", :target => "_blank",class: 'btn btn-lg btn-primary'  %>
+<% else %>
+
+    <p>Simple Mortal! </p>
+<% end %>
+
+<% if can? :index, Project %>
+  <%= link_to 'Projects', projects_path, class: 'btn btn-lg btn-primary' %>
+<% end %>
+
+<ul class="nav navbar-nav">
+  <% if can? :create, Project %>
+    <li><%= link_to 'Add Project', new_project_path %></li>
+  <% end %>
+</ul>
+
+<a class="dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown" href="#">
+      
